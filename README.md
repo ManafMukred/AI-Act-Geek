@@ -22,7 +22,7 @@ This project provides a conversational interface for users to ask questions abou
 
 The project utilizes Docker Compose to manage and deploy the backend and frontend services as a single application. This allows for easy deployment and ensures all required components run seamlessly together.
 
-## CI/CD Pipeline
+**CI/CD Pipeline**
 
 This project leverages GitHub Actions to automate code linting on every push to the repository. The `.github/workflows/main.yml` file defines a workflow that runs a  job named `superlint`.
 
