@@ -1,6 +1,6 @@
 name: Code Checker
 
-on: push
+on: workflow_dispatch
 
 jobs:
   super-lint:
