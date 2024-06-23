@@ -3,7 +3,7 @@ name: Code Checker
 on: workflow_dispatch
 
 jobs:
-  super-lint:
+  check-code:
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
@@ -12,17 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Backend Python Linter
-        uses: sunnysid3up/python-linter@v0.1-beta.7
-        with:
-          source: "app/backend"  
-          mypy-options: "--ignore-missing-imports"
-      
-      - name: Frontend Python Linter
-        uses: sunnysid3up/python-linter@v0.1-beta.7
-        with:
-            source: "app/frontend"  
-            mypy-options: "--ignore-missing-imports"
+      - name: PEP8 Action
+        uses: quentinguidee/pep8-action@v1
+  
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
