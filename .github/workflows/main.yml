@@ -3,17 +3,19 @@ name: Code Checker
 on: workflow_dispatch
 
 jobs:
-  super-lint:
+  check-code:
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v6
+      - name: PEP8 Action
+        uses: quentinguidee/pep8-action@v1
+        # with:
+        #   arguments: "--disable=E0611 --disable=C0116 --disable=C0114"
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
