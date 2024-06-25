@@ -7,13 +7,13 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import RedirectResponse
 from langchain.chains import ConversationalRetrievalChain, LLMChain
 from langchain.embeddings import OpenAIEmbeddings
-# from langchain.embeddings import HuggingFaceInstructEmbeddings
+# from langchain.embeddings import HuggingFaceInstructEmbeddings as HFIE
 from langchain.memory.buffer import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores.faiss import FAISS
 from langchain_openai import ChatOpenAI
-from prompt import qa_template
+from prompt import QA_TEMPLATE
 from PyPDF2 import PdfReader
 
 load_dotenv()
@@ -45,7 +45,7 @@ def get_text_chunks(text):
 
 def get_vectorstore(text_chunks):
     embeddings = OpenAIEmbeddings()
-    # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    # embeddings = HFIE(model_name="hkunlp/instructor-xl")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local(".temp_faiss_index")
 
@@ -97,7 +97,7 @@ async def conversation(query: dict):
         openai_api_key=os.environ.get("OPENAI_API_KEY"),
     )
     prompt = PromptTemplate(
-        input_variables=["context", "question"], template=qa_template
+        input_variables=["context", "question"], template=QA_TEMPLATE
     )
     reference = get_context(query["question"])
     chain = LLMChain(llm=llm, prompt=prompt)
