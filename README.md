@@ -26,15 +26,15 @@ The project utilizes Docker Compose to manage and deploy the backend and fronten
 
 This project leverages GitHub Actions to automate code linting on every push to the repository. The `.github/workflows/main.yml` file defines a workflow that runs a  job named `superlint`.
 
-**Superlinter Job:**
+**check-code Job:**
 
 * **Checkout:** This job begins by checking out the code from the repository.
-* **Uses:** It uses the `actions/checkout@v6` action to perform the checkout step.
+* **Uses:** It uses the `actions/checkout@v3` action to perform the checkout step.
 * **Runs on:** The job runs on the `ubuntu-latest` runner environment provided by GitHub Actions.
 * **Steps:**
-    * **Use SuperLinter:** This step installs and utilizes the `super-linter` action to perform code linting.
-        * `uses:github/super-linter@v6`: This line specifies the SuperLinter action and its version.
-    * **Lint:** The SuperLinter action runs various linters specific to the project's programming languages (e.g., Pylint for Python) to identify potential code issues.
+    * **Use PEP8 Action:** This step installs and utilizes the `PEP8 Action` action to perform code linting.
+        * `uses:github/PEP8 Action@v1`: This line specifies the SuperLinter action and its version.
+
 
 **Getting Started:**
 
