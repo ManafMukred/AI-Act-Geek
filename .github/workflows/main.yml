@@ -30,14 +30,13 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "$ls"
+      - run: echo "Current working directory $GITHUB_WORKSPACE"
       - name: 'Create env file'
         # working-directory: ./app
         run: |
-          touch .env
+          touch app/.env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo "$ls"
-
+          echo "Current working directory $GITHUB_WORKSPACE"
 
   build-and-push:
     needs: [check-code, create_env_file]
