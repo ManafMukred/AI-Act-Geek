@@ -31,12 +31,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Create env file'
-        working-directory: app
-        run: |
-          pwd
-          touch .env
-          echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          cat .env
+        uses: actually-colab/github-action-create-env-file@v2.3
+        with:
+            envkey_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+            directory: app
+            file_name: .env
 
 
   build-and-push:
