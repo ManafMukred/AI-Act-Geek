@@ -30,7 +30,7 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Current working directory $GITHUB_WORKSPACE"
+      - run: echo "Current working directory $ls"
       - name: 'Create env file'
         # working-directory: ./app
         run: |
