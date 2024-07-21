@@ -30,14 +30,15 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - run:  cd app      
-      - name: Create .env file
-        uses: ozaytsev86/create-env-file@v1
-        with:
-          ENV_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
+          cat .env
+
 
   build-and-push:
-    needs: check-code
+    needs: [check-code, create_env_file]
     runs-on: ubuntu-latest
     permissions:
       contents: read
