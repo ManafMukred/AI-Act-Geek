@@ -27,19 +27,19 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  create_env_file:
-    runs-on: ubuntu-latest
-    steps:
-      - run: ls
-      - name: 'Create env file'
-        # working-directory: ./app
-        run: |
-          touch app/.env
-          echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo "Current working directory $GITHUB_WORKSPACE"
+  # create_env_file:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: ls
+  #     - name: 'Create env file'
+  #       # working-directory: ./app
+  #       run: |
+  #         touch app/.env
+  #         echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
+  #         echo "Current working directory $GITHUB_WORKSPACE"
 
   build-and-push:
-    needs: [check-code, create_env_file]
+    needs: check-code
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -58,6 +58,8 @@ jobs:
 
       - name: Build and push Docker Compose images
         working-directory: ./app
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           docker-compose build
           docker-compose push
