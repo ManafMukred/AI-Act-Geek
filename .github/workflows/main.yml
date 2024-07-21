@@ -32,6 +32,7 @@ jobs:
     steps:
       - name: 'Create env file'
         run: |
+          cd app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
           cat .env
