@@ -31,8 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          cd ..
-          cd app
+          cd ../app
       - name: 'Create env file'
         run: |
           touch .env
