@@ -26,6 +26,15 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create_env_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create .env file
+        uses: ozaytsev86/create-env-file@v1
+        with:
+          ENV_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
   build-and-push:
     needs: check-code
     runs-on: ubuntu-latest
