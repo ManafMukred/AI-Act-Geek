@@ -30,9 +30,9 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
+      - run: echo $PWD
       - name: 'Create env file'
         run: |
-          ls
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
           cat .env
