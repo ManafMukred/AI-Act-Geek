@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Create env file'
-        working-directory: app
+        working-directory: ./app
         run: |
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
