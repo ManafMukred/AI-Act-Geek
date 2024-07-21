@@ -30,13 +30,11 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          cd ../app
       - name: 'Create env file'
         run: |
+          cd app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          cat .env
 
 
   build-and-push:
