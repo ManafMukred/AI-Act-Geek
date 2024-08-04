@@ -38,7 +38,7 @@ jobs:
           echo "API_KEY=${{ secrets.OPENAI_API_KEY }}" > app/.env
           pwd
           cd app
-          ls
+          ls -la
 
       - name: PEP8 Action
         uses: quentinguidee/pep8-action@v1
