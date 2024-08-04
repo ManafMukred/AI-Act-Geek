@@ -13,15 +13,18 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - run: ls
-      - name: 'Create env file'
-        working-directory: ./app
-        run: |
-          echo "Current working directory $GITHUB_WORKSPACE"
+      # - run: ls
+      # - name: 'Create env file'
+      #   working-directory: ./app
+      - run: |
+          echo "Current directory before:"
+          pwd
+          mkdir -p app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo "Current working directory $GITHUB_WORKSPACE"
-  check-code:
+          echo "This is a new file" > existing_directory/new_file.txt
+          echo "Current directory after:"
+          pwd  check-code:
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
