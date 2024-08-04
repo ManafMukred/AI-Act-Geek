@@ -37,6 +37,7 @@ jobs:
         run: |
           echo "API_KEY=${{ secrets.OPENAI_API_KEY }}" > app/.env
           pwd
+          cd app
           ls
 
       - name: PEP8 Action
