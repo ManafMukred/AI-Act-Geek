@@ -13,17 +13,17 @@ jobs:
   create_env_file:
     runs-on: ubuntu-latest
     steps:
-      # - run: ls
-      # - name: 'Create env file'
-      #   working-directory: ./app
+      - run:
+        working-directory: ./app
+
       - run: |
           echo "Current directory before:"
-          ls
+          pwd
           cd app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
           echo "Current directory after:"
-          ls   
+          ls -la app  
   check-code:
     name: Lint code base
     runs-on: ubuntu-latest
