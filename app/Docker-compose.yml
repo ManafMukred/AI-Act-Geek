@@ -2,6 +2,7 @@ version: '3.8'
 services:
   frontend:
     build: frontend
+    image: mukredize/ai-act-geek:latest
     ports:
       - 8501:8501
     depends_on:
@@ -15,6 +16,7 @@ services:
     
   backend:
     build: backend
+    image: mukredize/ai-act-geek:backend
     ports:
       - 8000:8000
     env_file:
@@ -29,3 +31,4 @@ services:
 networks:
   app:
     driver: bridge
+  
