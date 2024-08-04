@@ -18,8 +18,7 @@ jobs:
       #   working-directory: ./app
       - run: |
           echo "Current directory before:"
-          pwd
-          cd ..
+          ${{github.workspace}}
           ls
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
