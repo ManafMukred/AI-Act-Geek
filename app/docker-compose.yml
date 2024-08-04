@@ -2,7 +2,7 @@ version: '3.8'
 services:
   frontend:
     build: frontend
-    image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
+    image: mukredize/ai-act-geek:latest
     ports:
       - 8501:8501
     depends_on:
@@ -16,7 +16,7 @@ services:
     
   backend:
     build: backend
-    image: ghcr.io/${GITHUB_REPOSITORY}/backend:latest
+    image: mukredize/ai-act-geek:latest
     ports:
       - 8000:8000
     env_file:
