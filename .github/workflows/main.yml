@@ -57,7 +57,7 @@ jobs:
         ls -la
         # Build images
         # docker-compose build
-        docker-compose build --tag your_username/frontend:v1.0 --tag your_username/backend:v1.0
+        docker-compose build --tag mukredize/frontend:v1.0 --tag mukredize/backend:v1.0
         docker-compose push
       
         # # Tag images
