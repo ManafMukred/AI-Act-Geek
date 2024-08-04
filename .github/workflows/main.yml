@@ -62,8 +62,8 @@ jobs:
       run: |
         ls -la
         # Build images
-        # docker-compose build
-        docker-compose build --tag mukredize/frontend:v1.0 --tag mukredize/backend:v1.0
+        docker-compose build
+        # docker-compose build --tag mukredize/frontend:v1.0 --tag mukredize/backend:v1.0
         docker-compose push
       
         # # Tag images
