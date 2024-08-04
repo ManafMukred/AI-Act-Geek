@@ -15,10 +15,10 @@ jobs:
     steps:
       - run: ls
       - name: 'Create env file'
-        # working-directory: ./app
+        working-directory: ./app
         run: |
           echo "Current working directory $GITHUB_WORKSPACE"
-          touch app/.env
+          touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
           echo "Current working directory $GITHUB_WORKSPACE"
   check-code:
