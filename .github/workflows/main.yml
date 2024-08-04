@@ -47,6 +47,8 @@ jobs:
     
     - name: Setup docker-compose
       uses: KengoTODA/actions-setup-docker-compose@v1.2.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
     
     - name: Login to DockerHub
