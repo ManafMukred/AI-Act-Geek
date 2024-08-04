@@ -18,12 +18,12 @@ jobs:
       #   working-directory: ./app
       - run: |
           echo "Current directory before:"
-          pwd
-          mkdir -p app
+          ls
+          cd app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
           echo "Current directory after:"
-          pwd  
+          ls   
   check-code:
     name: Lint code base
     runs-on: ubuntu-latest
