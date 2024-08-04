@@ -24,23 +24,39 @@ The project utilizes Docker Compose to manage and deploy the backend and fronten
 
 **CI/CD Pipeline**
 
-This project leverages GitHub Actions to automate code linting on every push to the repository. The `.github/workflows/main.yml` file defines a workflow that runs a  job named `superlint`.
+This project leverages GitHub Actions to automate code linting on every push to the repository. The `.github/workflows/main.yml` file defines a workflow that runs the following jobs.
 
-**Superlinter Job:**
+**1. check-code Job:**
 
 * **Checkout:** This job begins by checking out the code from the repository.
-* **Uses:** It uses the `actions/checkout@v6` action to perform the checkout step.
+* **Uses:** It uses the `actions/checkout@v3` action to perform the checkout step.
 * **Runs on:** The job runs on the `ubuntu-latest` runner environment provided by GitHub Actions.
 * **Steps:**
-    * **Use SuperLinter:** This step installs and utilizes the `super-linter` action to perform code linting.
-        * `uses:github/super-linter@v6`: This line specifies the SuperLinter action and its version.
-    * **Lint:** The SuperLinter action runs various linters specific to the project's programming languages (e.g., Pylint for Python) to identify potential code issues.
+    * **Use PEP8 Action:** This step installs and utilizes the `PEP8 Action` action to perform code linting.
+        * `uses:github/PEP8 Action@v1`: This line specifies the SuperLinter action and its version.
+
+**2. build-and-push Job:**
+
+* **Needs:** This job depends on the successful completion of the `check-code` job (`needs: check-code`). This enforces code quality checks before proceeding with building and pushing images.
+* **Runs on:** This job runs on the `ubuntu-latest` runner environment.
+* **Steps:**
+    1. **Checkout code:** Identical to the `check-code` job, this step retrieves the code from the repository using `actions/checkout@v3`.
+    2. **Create .env file:** This step creates a `.env` file within the `app` directory. It securely stores your OpenAI API key (`API_KEY`) using a secret (`{{ secrets.OPENAI_API_KEY }}`) to prevent exposure.
+    3. **Set up Docker Buildx:** This step leverages the `docker/setup-buildx-action@v1` action to configure Docker Buildx, providing enhanced build capabilities (optional, adjust based on your needs).
+    4. **Setup docker-compose:** This step utilizes the `KengoTODA/actions-setup-docker-compose@v1.2.2` action to set up Docker Compose within the workflow. It provides access to `docker-compose` commands within your workflow steps. The `GITHUB_TOKEN` secret is required for authentication purposes.
+    5. **Login to DockerHub:** This step securely logs in to Docker Hub using the `docker/login-action@v1` action. It requires the `DOCKERHUB_USERNAME` environment variable (set elsewhere) and your Docker Hub token stored in the `DOCKERHUB_TOKEN` secret.
+    6. **Build and push Docker images (working directory: app):**
+        - **Verify directory (optional):** This line (`ls -la`) can be used for debugging purposes to confirm the working directory is set correctly.
+        - **Build & push using docker-compose:** This primary approach utilizes `docker-compose build` and `docker-compose push` commands to build and push the images defined in your `docker-compose.yml` file.
+        - **OR tag then push individually with docker (optional):** This section provides an alternative approach where you can comment out the above lines and uncomment these to tag and push each image separately using `docker tag` and `docker push` commands.
+    7. **Verify pushed images (optional):** This step (`docker images`) can be used to verify the successfully pushed images to Docker Hub after the build and push process.
 
 **Getting Started:**
 
-1. Create a `.env` file in your project directory and add your OpenAI API key: `OPENAI_API_KEY=your_openai_api_key`.
-2. Run `docker-compose up -d` to build and start the application.
-3. Access the application in your web browser at `http://localhost:8501`.
+1. Clone this repo to your local machine
+2. Create a `.env` file in your project directory and add your OpenAI API key: `OPENAI_API_KEY=your_openai_api_key`.
+3. Run `docker-compose up -d` to build and start the application.
+4. Access the application in your web browser at `http://localhost:8501`.
 
 **Note:**
 
