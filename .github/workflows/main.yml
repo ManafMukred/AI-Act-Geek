@@ -10,6 +10,16 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  create_env_file:
+    runs-on: ubuntu-latest
+    steps:
+      - run: ls
+      - name: 'Create env file'
+        # working-directory: ./app
+        run: |
+          touch app/.env
+          echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
+          echo "Current working directory $GITHUB_WORKSPACE"
   check-code:
     name: Lint code base
     runs-on: ubuntu-latest
@@ -26,17 +36,6 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # create_env_file:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: ls
-  #     - name: 'Create env file'
-  #       # working-directory: ./app
-  #       run: |
-  #         touch app/.env
-  #         echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-  #         echo "Current working directory $GITHUB_WORKSPACE"
 
   build-and-push:
     needs: check-code
