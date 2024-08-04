@@ -2,8 +2,8 @@ name: CI/CD Pipeline
 
 on: 
   workflow_dispatch:
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
 
 env:
 
@@ -17,13 +17,13 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v6
+      - name: PEP8 Action
+        uses: quentinguidee/pep8-action@v1
         env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEFAULT_BRANCH: main
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   build-and-push:
