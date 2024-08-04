@@ -19,6 +19,7 @@ jobs:
       - run: |
           echo "Current directory before:"
           pwd
+          cd ..
           ls
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
