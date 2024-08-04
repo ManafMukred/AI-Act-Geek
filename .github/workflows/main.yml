@@ -22,7 +22,6 @@ jobs:
           mkdir -p app
           touch .env
           echo API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo "This is a new file" > existing_directory/new_file.txt
           echo "Current directory after:"
           pwd  
   check-code:
